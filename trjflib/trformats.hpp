@@ -2,6 +2,7 @@
 #include "config.hpp"
 #endif
 // Oracle XDR is necessary
+#include <rpc/types.h>
 #include <rpc/xdr.h>
 #define XTC_MAGIC 1995
 #define XTC_HEADER_SIZE 16
@@ -13,6 +14,7 @@ typedef float xtc_cor;
 #define SQR(x) ((x)*(x))
 #endif
 
+#include<algorithm>
 //GPL ON
 
 static const int magicints[] = {
@@ -319,9 +321,9 @@ int xdr3dfcoord(XDR *xdrs, float *fp, int *size, float *precision)
             return 0;
         }
 
-        maxidx       = MIN(LASTIDX, smallidx + 8);
+        maxidx       = min((int)LASTIDX, smallidx + 8);
         minidx       = maxidx - 8; /* often this equal smallidx */
-        smaller      = magicints[MAX(FIRSTIDX, smallidx-1)] / 2;
+        smaller      = magicints[max(FIRSTIDX, smallidx-1)] / 2;
         smallnum     = magicints[smallidx] / 2;
         sizesmall[0] = sizesmall[1] = sizesmall[2] = magicints[smallidx];
         larger       = magicints[maxidx];
@@ -560,9 +562,9 @@ int readatoms(XDR *xdrs,  vector<Atom> &vatoms, int *size, float *precision) {
 	
 	if (xdr_int(xdrs, &smallidx) == 0)	
 	    return 0;
-	maxidx = MIN(LASTIDX, smallidx + 8) ;
+	maxidx = min((int)LASTIDX, smallidx + 8) ;
 	minidx = maxidx - 8; /* often this equal smallidx */
-	smaller = magicints[MAX(FIRSTIDX, smallidx-1)] / 2;
+	smaller = magicints[max(FIRSTIDX, smallidx-1)] / 2;
 	smallnum = magicints[smallidx] / 2;
 	sizesmall[0] = sizesmall[1] = sizesmall[2] = magicints[smallidx] ;
 	larger = magicints[maxidx];
@@ -697,7 +699,7 @@ class XTCFile : public TrajecFile
      bool forwardframe();
      XDR xdr; // Numerical Conversion Class
      FILE* file; // C style FIO
-     off64_t fsize;
+     off_t fsize;
 };
 
 bool XTCFile::ParseNextFrame()
@@ -842,9 +844,9 @@ bool XTCFile::read_cor(xtc_cor *coor)
 bool XTCFile::forwardframe()
 {
  int magic;
- off64_t currpos= ftell(file);
+ off_t currpos= ftell(file);
  int increment=atoms*sizeof(int)/8*4+XTC_HEADER_SIZE;
-  off64_t currpos2=currpos+increment;  
+  off_t currpos2=currpos+increment;  
   fseek(file,currpos2,SEEK_SET);
   while(xdr_int(&xdr,&magic)!=0 && currpos2<fsize)
   { currpos2+=4;

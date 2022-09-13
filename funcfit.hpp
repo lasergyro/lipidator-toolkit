@@ -1,6 +1,6 @@
-#include <Eigen/Dense>
-#include <Eigen/Sparse>
-#include <unsupported/Eigen/NonLinearOptimization>
+#include <eigen3/Eigen/Dense>
+#include <eigen3/Eigen/Sparse>
+#include <eigen3/unsupported/Eigen/NonLinearOptimization>
 using namespace std;
 using namespace Eigen;
 

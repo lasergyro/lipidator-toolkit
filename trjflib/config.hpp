@@ -15,7 +15,7 @@
 #include <boost/nondet_random.hpp>
 //#define DEBUG
 using namespace std;
-#define SSTR( x ) static_cast< std::ostringstream & >( \
+#define SSTR( x ) static_cast< std::ostringstream >( \
         ( std::ostringstream() << std::dec << x ) ).str()
 #define CACHEFRAMES 5
 #define HAVE_CONFIG

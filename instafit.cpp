@@ -492,7 +492,7 @@ double AVGAPL=AVGA/AVGPL;
 
 AVGBEND/=contrib;
 AVGK/=contrib;
-Matrix3 box;
+std::Matrix3 box;
 box=traj.GetBoxMat();
 triple dim;
 dim.x=box.row[0].x;

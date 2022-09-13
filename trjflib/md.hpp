@@ -793,8 +793,8 @@ class Analyzer
     
    double CalcIndexTemp(vector<int> &Index, Isotopeinfo *iso=NULL, int contraints=0)
    {
-     const double kbol=1.3806504 * (10^-23);
-     const double au2J=4.3597439 * (10^-18);
+     const double kbol=1.3806504 * (1e-23);
+     const double au2J=4.3597439 * (1e-18);
      const double cfac=315774.65;
      double Ekin,cmass, Temp;
      triple rvel; // Resulting Velocity

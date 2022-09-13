@@ -50,7 +50,7 @@ class GroFile : public TrajecFile
      int getmolecules(void);
      int framesfromlines(int filelength, bool hasextended);
 
-     off64_t fsize;
+     off_t fsize;
      Topology top;
 };
 
